@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - include:
+      file: /db/changelog/changes/create-goods-table.sql
+  - include:
+      file: /db/changelog/changes/create-masters-table.sql
+  - include:
+      file: /db/changelog/changes/create-owners-table.sql
+  - include:
+      file: /db/changelog/changes/create-cars-table.sql
+  - include:
+      file: /db/changelog/changes/create-orders-table.sql
+  - include:
+      file: /db/changelog/changes/create-services-table.sql
+  - include:
+      file: /db/changelog/changes/create-masters-complected-orders-table.sql
+  - include:
+      file: /db/changelog/changes/create-orders-goods-table.sql
+  - include:
+      file: /db/changelog/changes/create-orders-services-table.sql
+  - include:
+      file: /db/changelog/changes/create-owners-cars-table.sql
+  - include:
+      file: /db/changelog/changes/create-owners-orders-table.sql
+  - include:
+      file: /db/changelog/changes/add-deleted-column-to-cars-table.sql

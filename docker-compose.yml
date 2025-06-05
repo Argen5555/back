@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  db:
+    platform: linux/x86_64
+    image: 'postgres:13.3'
+    container_name: db
+    environment:
+      - POSTGRES_USER=compose-postgres
+      - POSTGRES_PASSWORD=compose-postgres
+
+  app:
+    depends_on:
+      - db
+    image: pavlogook/car-service
+    build:
+      context: .
+    env_file: ./.env
+    container_name: app
+    ports:
+      - $SPRING_LOCAL_PORT:$SPRING_DOCKER_PORT
+      - $DEBUG_PORT:$DEBUG_PORT
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "spring.datasource.url" : "jdbc:postgresql://db:5432/compose-postgres",
+        "spring.datasource.username" : "compose-postgres",
+        "spring.datasource.password" : "compose-postgres",
+        "spring.jpa.hibernate.ddl-auto" : "validate"
+      }'
+      JAVA_TOOL_OPTIONS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
