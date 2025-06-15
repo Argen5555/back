@@ -1,17 +1,9 @@
 version: '3.8'
 
+# Атрибут 'version' устарел и его можно убрать
 services:
-  db:
-    platform: linux/x86_64
-    image: 'postgres:13.3'
-    container_name: db
-    environment:
-      - POSTGRES_USER=compose-postgres
-      - POSTGRES_PASSWORD=compose-postgres
-
   app:
-    depends_on:
-      - db
+    # 'depends_on' больше не нужен, так как сервиса 'db' нет
     image: pavlogook/car-service
     build:
       context: .
@@ -22,9 +14,9 @@ services:
       - $DEBUG_PORT:$DEBUG_PORT
     environment:
       SPRING_APPLICATION_JSON: '{
-        "spring.datasource.url" : "jdbc:postgresql://db:5432/compose-postgres",
-        "spring.datasource.username" : "compose-postgres",
-        "spring.datasource.password" : "compose-postgres",
-        "spring.jpa.hibernate.ddl-auto" : "validate"
+        "spring.datasource.url": "jdbc:postgresql://ep-red-butterfly-a1ktqoii-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require",
+        "spring.datasource.username": "neondb_owner",
+        "spring.datasource.password": "npg_crDKwv1pql2G",
+        "spring.jpa.hibernate.ddl-auto": "validate"
       }'
       JAVA_TOOL_OPTIONS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
